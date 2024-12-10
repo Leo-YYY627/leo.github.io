@@ -1,0 +1,139 @@
+body {  
+    font-size: 14px; /* 稍微增大字体 */  
+    font-family: Arial, sans-serif; /* 简化字体列表，使用更现代的字体 */  
+    color: #333; /* 更深的文本颜色，提高可读性 */  
+    text-align: center;  
+    background-color: #f8f9fa; /* 更浅的背景色 */  
+    margin: 0;  
+    padding: 0;  
+}  
+  
+h6 {  
+    margin: 0;  
+    font-size: 38px; /* 增大标题字体 */  
+    font-weight: bold; /* 加粗标题 */
+    user-select: none; /* 防止文本被选择 */ 
+    color: #000; 
+    cursor: default; /* 可选：更改鼠标光标样式以指示不可选择 */  
+}  
+  
+#mr-calculator {  
+    width: 480px;  
+    margin: 20px auto; /* 增加外边距 */  
+    border: #ddd 1px solid; /* 更改边框颜色 */  
+    padding-bottom: 20px; /* 增加内边距 */  
+    background-color: #ffffff; /* 使用白色背景 */  
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* 添加阴影效果 */  
+    border-radius: 8px; /* 圆角效果 */  
+}  
+  
+#mr-calculator div {  
+    clear: both;  
+}  
+  
+#mr-calculator ul {  
+    padding: 0;  
+    margin: 10px 30px; /* 增加内边距 */
+    list-style: none;  
+    display: flex; /* 使用flex布局 */  
+    flex-wrap: wrap; /* 允许换行 */  
+    justify-content: center; /* 水平居中 */  
+}  
+  
+#mr-calculator li {  
+    width: 70px;  
+    height: 70px; /* 设置按钮高度和宽度相同 */  
+    margin: 5px;  
+    line-height: 70px; /* 调整行高以匹配按钮高度 */  
+    font-size: 30px; /* 增大字体 */ 
+    font-weight: bold; /* 加粗 */  
+    background-color: #e0e0e0; /* 更改背景色 */  
+    border-radius: 50%; /* 圆形效果 */  
+    transition: background-color 0.3s, transform 0.1s; /* 添加过渡效果 */  
+    user-select: none; /* 防止文本被选择 */  
+    cursor: default; /* 可选：更改鼠标光标样式以指示不可选择 */
+}  
+  
+#mr-calculator li.tool {  
+    background-color: #d0d0d0; /* 更改工具按钮的背景色 */  
+}  
+  
+#mr-calculator li:hover {  
+    background-color: #e9ecef; /* 更改悬停时的背景色 */  
+    cursor: pointer;  
+    transform: scale(1.05); /* 悬停时稍微放大 */  
+}  
+  
+#mr-calculator li:active {  
+    background-color: #ffd700; /* 更改点击时的背景色 */  
+    cursor: pointer;  
+    transform: scale(0.95); /* 点击时稍微缩小 */  
+}  
+  
+#mr-calculator li.tool:active {  
+    background-color: #b3d9ff; /* 更改工具按钮点击时的背景色 */  
+    cursor: pointer;  
+}  
+  
+#calcu-head {  
+    padding: 15px 20px; /* 增加内边距 */  
+    background-color: #ffffff; /* 更改头部背景色 */  
+    color: #333; /* 更改头部文本颜色 */  
+    border-top-left-radius: 8px; /* 左上角圆角 */  
+    border-top-right-radius: 8px; /* 右上角圆角 */  
+}  
+  
+span.imyeah {  
+    float: right;  
+    color: rgba(255, 255, 255, 0.7); /* 更改颜色并增加透明度 */  
+}  
+  
+span.imyeah a {  
+    color: rgba(255, 255, 255, 0.7); /* 更改链接颜色 */  
+}  
+  
+.screen {  
+    width: 400px;  
+    height: 40px; /* 调整高度 */  
+    line-height: 32px; /* 调整行高 */  
+    padding: 6px; /* 增加内边距 */   
+    padding-right: 20px;
+    margin: 0 auto;  
+    direction: ltr;  
+    text-align: right;  
+    border:#ddd 0px solid;
+    border-bottom:#ddd 0px solid;
+    border-right:#ddd 1px solid;
+    border-collapse: collapse;
+    font-size: 34px; /* 增大字体 */ 
+    font-weight: bold; /* 加粗 */ 
+    color: #333; /* 更改文本颜色 */  
+    background-color: #f1f1f1; /* 添加背景色 */  
+    border-radius: 8px; /* 圆角效果 */  
+    user-select: none; /* 防止文本被选择 */  
+    cursor: default; /* 可选：更改鼠标光标样式以指示不可选择 */
+}  
+  
+#calcu-foot {  
+    padding: 15px 20px; /* 增加内边距 */  
+    text-align: left;  
+    background-color: #f1f1f1; /* 添加背景色 */  
+    border-bottom-left-radius: 8px; /* 左下角圆角 */  
+    border-bottom-right-radius: 8px; /* 右下角圆角 */  
+}  
+  
+span#note {  
+    float: left;  
+    width: 210px;  
+    color: #dc3545; /* 使用更鲜明的红色 */  
+}  
+  
+span.welcome {  
+    clear: both;  
+    color: #6c757d; /* 使用更柔和的灰色 */  
+}  
+  
+span.welcome a {  
+    float: right;  
+    color: #6c757d; /* 使用更柔和的灰色 */  
+}
