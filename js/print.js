@@ -105,8 +105,13 @@ function inputfile(){
 
           setTimeout(aa, 400);
         } else if (fileExtension === 'pdf') {
-            var button = document.querySelector('.upload-button');
-            button.disabled = false;
+          var button = document.querySelector('.upload-button');
+          button.disabled = false;
+          var button2 = document.querySelector('.confirm-button');
+          button2.disabled = false;
+          var button3 = document.querySelector('.exit-button');
+          button3.disabled = false;
+          flag5 = 0;
             kd = decrypt(plainkdText, localStorage.getItem('loggedInktext'));
             ks = decrypt(plainksText, localStorage.getItem('loggedInktext'));
               const client = new OSS({
@@ -126,7 +131,7 @@ function inputfile(){
               if (files.length > 0) {
                 if (files.length > 0) {
                 var inputElement = document.querySelector('.number-money-input');
-                inputElement.value = "文件页数："+pageCount+"页";
+                inputElement.value = "文件页数："+pageCount+"页·············您无需支付！";
                 }
               }
               });
