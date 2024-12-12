@@ -54,6 +54,31 @@ body {
     color: #333;
 }
 
+.fileInput2 {
+    display: inline-block;
+    padding: 10px 20px;
+    font-size: 15px;
+    color: #fff;
+    background-color: #007bff;
+    border: none;
+    border-radius: 8px;
+    padding: 12px;
+    margin-top: 10px;
+    cursor: pointer;
+    text-align: center;
+    text-decoration: none;
+    outline: none;
+    transition: background-color 0.3s ease;
+}
+ 
+.fileInput2:hover {
+    background-color: #0056b3;
+}
+ 
+.fileInput2:active {
+    background-color: #004085;
+}
+
 .upload-button {
     display: block;
     width: 100%;
