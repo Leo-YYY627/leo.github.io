@@ -493,7 +493,12 @@ function updataprintfile(){
       alert("请选择一个文件！");
       return;
     }else{
-      isExistObject3(name);
+      var userConEx2 = confirm("打印页数：“"+localStorage.getItem('filepagenumber')+"页”");
+      if(userConEx2){
+        isExistObject3(name);
+      }else{
+        return;
+      }
     }
     
 }
