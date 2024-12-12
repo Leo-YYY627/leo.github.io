@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Leo打印支付页面</title>
+    <link type="text/css" rel="stylesheet" href="css/pay.css">
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <h1>Leo打印</h1>
+            <span class="version">v1.0.0</span>
+            <div class="account-info" id="account-info">
+                <!-- 账号信息将动态插入到这里 -->
+            </div>
+        </header>
+        <main class="main">
+            <div type="text" class="printtext" id="pay-text">正在打印，请稍后自行领取，谢谢！</div>
+            <br>
+            <div type="text" class="printtext" id="pay-text">如遇问题，请联系管理员</div>
+            <br>
+            <div type="text" class="paymoney" id="pay-money">您需要支付：</div>
+            <br>
+            <div class="file-format-hint">
+                <img src="image/wepay.png" width="400"></img>
+            </div>
+        </main>
+    </div>
+    <script src="js/pay.js"></script>
+</body>
+</html>

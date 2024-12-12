@@ -1,0 +1,126 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #f0f0f0;
+}
+
+.container {
+    width: 400px;
+    padding: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    background-color: #fff;
+    border-radius: 8px;
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.header h1 {
+    margin: 0;
+    font-size: 24px;
+    color: #333;
+}
+
+.header .version {
+    font-size: 14px;
+    color: #999;
+}
+
+.account-info {
+    font-size: 14px;
+    color: #666;
+}
+
+.status-box, .file-upload {
+    margin-bottom: 15px;
+}
+
+.status-input, .file-name-input, .number-money-input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    font-size: 14px;
+    color: #333;
+}
+
+.upload-button {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    margin-top: 10px;
+    border: none;
+    border-radius: 4px;
+    background-color: #007bff;
+    color: #fff;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.upload-button:hover {
+    background-color: #0056b3;
+}
+
+.drag-drop-hint {
+    font-size: 12px;
+    color: #ff0000;
+    margin-top: 5px;
+    text-align: center;
+}
+
+.file-format-hint {
+    font-size: 12px;
+    color: #ff0000;
+    margin-bottom: 15px;
+}
+
+.button-group {
+    display: flex;
+    justify-content: space-between;
+}
+
+.confirm-button, .exit-button {
+    width: 48%;
+    padding: 10px;
+    border: none;
+    border-radius: 4px;
+    background-color: #28a745;
+    color: #fff;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.exit-button {
+    background-color: #dc3545;
+}
+
+.confirm-button:hover {
+    background-color: #218838;
+}
+
+.exit-button:hover {
+    background-color: #c82333;
+}
+
+.no-interaction-input {
+    user-select: none;
+    caret-color: transparent;
+    pointer-events: none;
+}
+
+.no-interaction-input-number {
+    user-select: none;
+    caret-color: transparent;
+    pointer-events: none;
+    color: #000;
+}

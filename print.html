@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Leo打印服务首页</title>
+    <script src="https://gosspublic.alicdn.com/aliyun-oss-sdk-6.17.1.min.js"></script>
+    <script src="https://unpkg.com/ali-oss@6.16.0/dist/aliyun-oss-sdk.min.js"></script>
+    <script src="https://unpkg.com/docx@5.1.0/dist/docx.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.11.338/pdf.min.js"></script>
+    <link type="text/css" rel="stylesheet" href="css/print.css">
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <h1>Leo打印</h1>
+            <span class="version">v1.0.0</span>
+            <div class="account-info" id="account-info">
+                <!-- 账号信息将动态插入到这里 -->
+            </div>
+        </header>
+        <main class="main">
+            <div class="status-box">
+                <input type="text" class="status-input no-interaction-input" id="status-input" placeholder="服务状态：" readonly>
+            </div>
+            <div class="file-upload">
+                <input type="text" class="file-name-input no-interaction-input" placeholder="文件名称：" readonly>
+                <!-- 隐藏的文件输入框 -->
+                <input type="file" id="fileInput" style="display: none;" accept=".doc,.docx,.pdf" >
+                <!-- 触发文件选择的按钮 -->
+                <input type="text" class="number-money-input no-interaction-input" id="file-number-money" placeholder="文件页数：" readonly>
+                <button class="upload-button" onclick="triggerFileInput()">选择文件</button>
+            </div>
+            <div class="file-format-hint">
+                <span>！！！请上传Word和PDF格式的文件，如果文件不是这些格式，请先转换后再选择上传。(仅支持".docx"、".doc"、".pdf"格式)</span>
+            </div>
+            <div class="button-group">
+                <button class="confirm-button" id="uploadButton">确认</button>
+                <button class="exit-button">退出</button>
+            </div>
+            <div class="file-format-hint">
+                <br>
+                <span>注意：如果在打印Word文档时遇到打印结果错误，请先转换为PDF格式再尝试，错误的费用不需要您承担！</span>
+                <br>
+                <span>温馨提示：如页码错误请刷新网页再次尝试，谢谢！</span>
+            </div>
+        </main>
+    </div>
+    <script src="js/print.js"></script>
+</body>
+</html>
