@@ -49,38 +49,17 @@ function aaaa(){
   setTimeout(aa, 400);
 }
 
-//选择文件button被点击
-function triggerFileInput() {
+var flag5 = 0;
+
+function inputfile(){
+  if(flag5 == 1){
+    return;
+  }
   localStorage.setItem('filepagenumber', null);
   var inputElement = document.querySelector('.file-name-input');
   inputElement.value = "文件名称：";
   var inputElement2 = document.querySelector('.number-money-input');
   inputElement2.value = "文件页数：";
-  const client = new OSS({
-    region: 'oss-cn-hangzhou',
-    authorizationV4: true,
-    accessKeyId: kd,
-    accessKeySecret: ks,
-    bucket: 'web-leoyyy'
-  });
-
-  async function isExistObject5(name, options = {}) {
-    try {
-      await client.head(name, options);
-      var fileInput = document.getElementById('fileInput');
-      fileInput.click();
-    } catch (error) {
-      if (error.code === "NoSuchKey") {
-        window.alert("服务离线，请稍后尝试，谢谢！");
-      }
-    }
-  }
-  const name = "printMi/service/action.txt";
-  isExistObject5(name);
-}
-
-var pageCount = null;
-document.getElementById('fileInput').addEventListener('change', function(event) {
   flag2 = 1;
   flag3 = 0;
   var files = event.target.files; // 获取选中的文件列表
@@ -93,6 +72,7 @@ document.getElementById('fileInput').addEventListener('change', function(event) 
       button2.disabled = true;
       var button3 = document.querySelector('.exit-button');
       button3.disabled = true;
+      flag5 = 1;
   }
   for (var i = 0; i < files.length; i++) {
     (function (currentFile) {
@@ -174,8 +154,12 @@ document.getElementById('fileInput').addEventListener('change', function(event) 
       reader.readAsArrayBuffer(currentFile);
     })(files[i]);
   }
-});
+}
 
+var pageCount = null;
+document.getElementById('fileInput').addEventListener('change', function(event) {
+  inputfile();
+});
 
 function wordfilepage(){
       kd = decrypt(plainkdText, localStorage.getItem('loggedInktext'));
@@ -289,6 +273,8 @@ function repeatedTask() {
         button2.disabled = false;
         var button3 = document.querySelector('.exit-button');
         button3.disabled = false;
+        flag5 = 0;
+        
             async function isExistObject7(name, options = {}) {
             try {
               await client.head(name, options);
@@ -558,6 +544,7 @@ function logform(){
 }
   
 uploadButton.addEventListener("click", updataprintfile);
+
   // 退出按钮
   const exitButton = document.querySelector('.exit-button');
   exitButton.addEventListener('click', () => {
