@@ -6,6 +6,7 @@ var ks = null;
 var flag2 = 1;
 
 var flag3 = 0;
+//word
 function aa(){
   if(flag3 >=10){ 
     kd = decrypt(plainkdText, localStorage.getItem('loggedInktext'));
@@ -47,6 +48,27 @@ function aaaa(){
   var inputElement = document.querySelector('.number-money-input');
   inputElement.value = "文件页数：正在加载中......";
   setTimeout(aa, 400);
+}
+//pdf
+function aaaaa(){
+  if(flag2 == 2) return;
+  var inputElement = document.querySelector('.number-money-input');
+  inputElement.value = "文件页数：正在加载中..";
+  setTimeout(aaaaaa, 400);
+}
+
+function aaaaaa(){
+  if(flag2 == 2) return;
+  var inputElement = document.querySelector('.number-money-input');
+  inputElement.value = "文件页数：正在加载中....";
+  setTimeout(aaaaaaa, 400);
+}
+
+function aaaaaaa(){
+  if(flag2 == 2) return;
+  var inputElement = document.querySelector('.number-money-input');
+  inputElement.value = "文件页数：正在加载中......";
+  setTimeout(aaaaa, 400);
 }
 
 var flag5 = 0;
@@ -105,13 +127,7 @@ function inputfile(){
 
           setTimeout(aa, 400);
         } else if (fileExtension === 'pdf') {
-          var button = document.querySelector('.upload-button');
-          button.disabled = false;
-          var button2 = document.querySelector('.confirm-button');
-          button2.disabled = false;
-          var button3 = document.querySelector('.exit-button');
-          button3.disabled = false;
-          flag5 = 0;
+          setTimeout(aaaaa, 400);
             kd = decrypt(plainkdText, localStorage.getItem('loggedInktext'));
             ks = decrypt(plainksText, localStorage.getItem('loggedInktext'));
               const client = new OSS({
@@ -130,6 +146,17 @@ function inputfile(){
               localStorage.setItem('filepagenumber', pageCount);
               if (files.length > 0) {
                 if (files.length > 0) {
+                  if(localStorage.getItem('filepagenumber')!="null" && localStorage.getItem('filepagenumber')!= "NaN"){
+                    
+                  }
+                  var button = document.querySelector('.upload-button');
+                  button.disabled = false;
+                  var button2 = document.querySelector('.confirm-button');
+                  button2.disabled = false;
+                  var button3 = document.querySelector('.exit-button');
+                  button3.disabled = false;
+                  flag5 = 0;
+                  flag2 = 2;
                 var inputElement = document.querySelector('.number-money-input');
                 inputElement.value = "文件页数："+pageCount+"页·············您无需支付！";
                 }
@@ -144,6 +171,17 @@ function inputfile(){
               localStorage.setItem('filepagenumber', pageCount);
               if (files.length > 0) {
                 if (files.length > 0) {
+                  if(localStorage.getItem('filepagenumber')!="null" && localStorage.getItem('filepagenumber')!= "NaN"){
+                    
+                  }
+                  var button = document.querySelector('.upload-button');
+                  button.disabled = false;
+                  var button2 = document.querySelector('.confirm-button');
+                  button2.disabled = false;
+                  var button3 = document.querySelector('.exit-button');
+                  button3.disabled = false;
+                  flag5 = 0;
+                  flag2 = 2;
                 var inputElement = document.querySelector('.number-money-input');
                 inputElement.value = "文件页数："+pageCount+"页·············应付金额：￥"+pageCount*0.25+"元";
                 }
