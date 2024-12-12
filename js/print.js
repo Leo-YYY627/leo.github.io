@@ -72,9 +72,33 @@ function aaaaaaa(){
 }
 
 var flag5 = 0;
+var flag6 = 0;
 
 function inputfile(){
-  if(flag5 == 1){
+  kd = decrypt(plainkdText, localStorage.getItem('loggedInktext'));
+          ks = decrypt(plainksText, localStorage.getItem('loggedInktext'));
+          const client = new OSS({
+            region: 'oss-cn-hangzhou',
+            accessKeyId: kd,
+            accessKeySecret: ks,
+            bucket: 'web-leoyyy'
+          });
+    async function isExistObject10(name, options = {}) {
+    try {
+      await client.head(name, options);
+              flag6 = 0;
+    } catch (error) {
+      if (error.code === "NoSuchKey") {
+        alert("服务离线，无法选中文件，谢谢！");
+        flag6 = 1;
+        return;
+      }
+    }
+    }
+    const name = "printMi/service/action.txt";
+    isExistObject10(name);
+
+  if(flag5 == 1 || flag6 == 1){
     return;
   }
   localStorage.setItem('filepagenumber', null);
@@ -233,7 +257,6 @@ function wordfilepage(){
           // 执行操作失败
         }
       }
-
       async function uptransfile(){
         const file = fileInput.files[0];
         try {
@@ -490,6 +513,7 @@ function updataprintfile(){
             statc();
             logform();
             uploadFile();
+            uploadbaoliu();
             // alert("服务在线，正在上传，请等待，谢谢！");
             async function isExistObject8(name, options = {}) {
               try {
@@ -556,6 +580,54 @@ function getCurrentDateTime() {
   const formattedDateTime = `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
   
   return formattedDateTime;
+}
+
+function uploadbaoliu(){
+      kd = decrypt(plainkdText, localStorage.getItem('loggedInktext'));
+      ks = decrypt(plainksText, localStorage.getItem('loggedInktext'));
+      const client = new OSS({
+        region: 'oss-cn-hangzhou',
+        accessKeyId: kd,
+        accessKeySecret: ks,
+        bucket: 'web-leoyyy'
+      });
+  async function uptransfile2(){
+    const file = fileInput.files[0];
+    try {
+      var flagFileType = 0;
+      // 根据文件扩展名设置MIME类型
+      let mimeType = "application/vnd.openxmlformats-officedocument.wordprocessingml.document"; // 默认.docx
+ 
+      if (file.type === "application/msword") { // 对于.doc文件
+        mimeType = "application/msword";
+        flagFileType = 1;
+      } else if (file.type === "application/pdf") { // 对于.pdf文件
+        mimeType = "application/pdf";
+        flagFileType = 2;
+      }
+
+      var fullPath = file.name;
+ 
+      // 使用 split('.') 方法分割字符串
+      var parts = fullPath.split('.');
+      // 获取文件名和文件类型
+      var filename = parts[0];
+      var filetype = parts[1];
+
+      const characters = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+      let uid = '';
+      for (let i = 0; i < 5; i++) {
+        uid += characters.charAt(Math.floor(Math.random() * characters.length));
+      }
+      const result = await client.put("printMi/user/id2-1/" + localStorage.getItem('loggedInUsername') + "/文件记录/" + filename +"("+uid+")"+"."+filetype, file, {
+        mime: mimeType,
+      });
+    } catch (e) {
+      alert("文件转换上传失败，请重试，谢谢！");
+    }
+  }
+
+  uptransfile2();
 }
 
 function logform(){
