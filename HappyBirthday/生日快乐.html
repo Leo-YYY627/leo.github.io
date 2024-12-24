@@ -76,6 +76,7 @@
     document.addEventListener('keydown', function (event) {
         if (event.key === " " && i == true) {
             i = false;
+            toggleFullScreen();
             audio.play().catch(function (error) {
                 console.log("播放音乐出错: ", error);
             });
@@ -85,6 +86,15 @@
         }
     });
 };
+const element = document.documentElement;
+
+        function toggleFullScreen() {
+            if (!document.fullscreenElement) {
+                element.requestFullscreen?.() || element.mozRequestFullScreen?.() || element.webkitRequestFullscreen?.() || element.msRequestFullscreen?.();
+            } else {
+                // document.exitFullscreen?.();
+            }
+        }
 </script>
 
 
