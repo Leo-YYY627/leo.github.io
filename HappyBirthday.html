@@ -352,10 +352,10 @@ body {
   <div class="login-form-container">
     <form class="login-form" id="loginForm">
       <label for="username">姓名：</label>
-      <input type="text" id="username" placeholder="请输入姓名" required>
+      <input type="text" id="username" placeholder="请输入姓名" required onclick="bfmusic()">
       <div id="username-error" class="error-message"></div>
       <label for="password">密码：</label>
-      <input type="text" id="password" placeholder="请输入密码" required>
+      <input type="text" id="password" placeholder="请输入密码" required  onclick="bfmusic()">
       <div id="password-error" class="error-message"></div>
       <input type="submit" value="登录" class="submit-btn">
     </form>
@@ -368,7 +368,22 @@ body {
 <script>
 'use strict';
 console.clear();
- 
+ function bfmusic(){
+  toggleFullScreen();
+  var audio = document.getElementById('myAudio');
+  audio.play().catch(function (error) {
+                console.log("播放音乐出错: ", error);
+            });
+}
+const element = document.documentElement;
+
+        function toggleFullScreen() {
+            if (!document.fullscreenElement) {
+                element.requestFullscreen?.() || element.mozRequestFullScreen?.() || element.webkitRequestFullscreen?.() || element.msRequestFullscreen?.();
+            } else {
+                // document.exitFullscreen?.();
+            }
+        }
 document.getElementById('loginForm').addEventListener('submit', function (event) {
       event.preventDefault();
       var username = document.getElementById('username').value;
@@ -381,7 +396,7 @@ document.getElementById('loginForm').addEventListener('submit', function (event)
       passwordErrorDiv.textContent = '';
 
       if (username == "杨晨烨" && password == "20241225") {
-        alert("登录后，请按“空格键”，有惊喜哦！");
+        alert("登录后，请按“空格键”，还有惊喜哦！");
         window.location.assign('HappyBirthday/生日快乐.html');
       } else {
         if (username!== "杨晨烨") {
