@@ -61,7 +61,7 @@
 </div>
 <h1>Feliz Cumpleaños Pratik!</h1>
 <h2>Happy Birthday 杨晨烨!</h2>
-<span>🎉</span>
+<span onclick="bfmusic()">🎉</span>
 <div class="candle">
 <div id="flame" class="lit"></div>
 </div>
@@ -86,6 +86,20 @@
         }
     });
 };
+
+    function bfmusic(){
+    var audio = document.getElementById('myAudio');
+    if (i == true) {
+            i = false;
+            toggleFullScreen();
+            audio.play().catch(function (error) {
+                console.log("播放音乐出错: ", error);
+            });
+        }else if(i == false){
+            audio.pause();
+            i = true;
+        }
+}
 const element = document.documentElement;
 
         function toggleFullScreen() {
