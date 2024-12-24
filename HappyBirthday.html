@@ -381,14 +381,14 @@ document.getElementById('loginForm').addEventListener('submit', function (event)
       passwordErrorDiv.textContent = '';
 
       if (username == "杨晨烨" && password == "20241225") {
-        alert("进入后按空格有惊喜哦！");
+        alert("登录后，请按“空格键”，有惊喜哦！");
         window.location.assign('HappyBirthday/生日快乐.html');
       } else {
         if (username!== "杨晨烨") {
           usernameErrorDiv.textContent = '离谱离谱，姓名都输不对，啊啊啊！';
         }
         if (password!== "20241225") {
-          passwordErrorDiv.textContent = '提示：是个特殊的日子！';
+          passwordErrorDiv.textContent = '浅浅提示一下：是个特殊的日子哦！';
         }
       }
     });
