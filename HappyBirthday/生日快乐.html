@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en" >
+
+<head>
+<meta charset="UTF-8">
+<title>Happy Birthday!</title>
+
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<bokeh></bokeh>
+<bokeh></bokeh>
+<bokeh></bokeh>
+<bokeh></bokeh>
+<bokeh></bokeh>
+<bokeh></bokeh>
+<bokeh></bokeh>
+<bokeh></bokeh>
+<bokeh></bokeh>
+<bokeh></bokeh>
+<bokeh></bokeh>
+<bokeh></bokeh>
+<bokeh></bokeh>
+<bokeh></bokeh>
+<bokeh></bokeh>
+<bokeh></bokeh>
+<bokeh></bokeh>
+<bokeh></bokeh>
+<bokeh></bokeh>
+<bokeh></bokeh>
+<bokeh></bokeh>
+<bokeh></bokeh>
+<bokeh></bokeh>
+<bokeh></bokeh>
+<bokeh></bokeh>
+<bokeh></bokeh>
+<bokeh></bokeh>
+<bokeh></bokeh>
+<bokeh></bokeh>
+<bokeh></bokeh>
+<bokeh></bokeh>
+<bokeh></bokeh>
+<bokeh></bokeh>
+<bokeh></bokeh>
+<bokeh></bokeh>
+<bokeh></bokeh>
+<bokeh></bokeh>
+<bokeh></bokeh>
+<bokeh></bokeh>
+<bokeh></bokeh>
+<bokeh></bokeh>
+<bokeh></bokeh>
+<bokeh></bokeh>
+<bokeh></bokeh>
+<bokeh></bokeh>
+<div class="mobile">最大化查看</div>
+<div class="pyro">
+<div class="before"></div>
+<div class="after"></div>
+</div>
+<h1>Feliz Cumpleaños Pratik!</h1>
+<h2>Happy Birthday 杨晨烨!</h2>
+<span>🎉</span>
+<div class="candle">
+<div id="flame" class="lit"></div>
+</div>
+<audio id="myAudio" src="music/happybirthday-8bite.mp3"></audio>
+
+<div class="cake"></div>
+<div class="plate"></div>
+<script>
+    var i = true;
+    window.onload = function () {
+    var audio = document.getElementById('myAudio');
+    document.addEventListener('keydown', function (event) {
+        if (event.key === " " && i == true) {
+            i = false;
+            audio.play().catch(function (error) {
+                console.log("播放音乐出错: ", error);
+            });
+        }else{
+            audio.pause();
+            i = true;
+        }
+    });
+};
+</script>
+
+
+</body>
+
+</html>
+
