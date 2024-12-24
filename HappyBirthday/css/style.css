@@ -1,4 +1,9 @@
 @import url("https://fonts.googleapis.com/css?family=Concert+One|Pacifico");
+/* 设置html和body元素占满整个视口，并且隐藏滚动条 */
+ html {
+  overflow: hidden;
+  height: 100%;
+}
 .mobile {
   position: fixed;
   text-align: center;
