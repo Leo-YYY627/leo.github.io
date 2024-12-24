@@ -79,7 +79,7 @@
             audio.play().catch(function (error) {
                 console.log("播放音乐出错: ", error);
             });
-        }else{
+        }else if(event.key === " " && i == false){
             audio.pause();
             i = true;
         }
