@@ -369,13 +369,13 @@ body {
 <script>
 'use strict';
 console.clear();
- function bfmusic(){
-  toggleFullScreen();
-  var audio = document.getElementById('myAudio');
-  audio.play().catch(function (error) {
-                console.log("播放音乐出错: ", error);
-            });
-}
+//  function bfmusic(){
+//   toggleFullScreen();
+//   var audio = document.getElementById('myAudio');
+//   audio.play().catch(function (error) {
+//                 console.log("播放音乐出错: ", error);
+//             });
+// }
 const element = document.documentElement;
 
         function toggleFullScreen() {
@@ -395,18 +395,19 @@ document.getElementById('loginForm').addEventListener('submit', function (event)
       // 清空之前可能存在的错误提示
       usernameErrorDiv.textContent = '';
       passwordErrorDiv.textContent = '';
-
-      if (username == "杨晨烨" && password == "20241225") {
-        alert("登录后，请按“空格键”，还有惊喜哦！");
-        window.location.assign('HappyBirthday/生日快乐.html');
-      } else {
-        if (username!== "杨晨烨") {
-          usernameErrorDiv.textContent = '离谱离谱，姓名都输不对，当然是写你自己的啦！';
-        }
-        if (password!== "20241225") {
-          passwordErrorDiv.textContent = '浅浅提示一下：是个特殊的日子哦！';
-        }
-      }
+      usernameErrorDiv.textContent = '只有特殊日子才开放哦！';
+      passwordErrorDiv.textContent = '祝你开心快乐每一天！';
+      // if (username == "" && password == "") {
+      //   alert("登录后，请按“空格键”，还有惊喜哦！");
+      //   window.location.assign('HappyBirthday/生日快乐.html');
+      // } else {
+      //   if (username!== "杨晨烨") {
+      //     usernameErrorDiv.textContent = '离谱离谱，姓名都输不对，当然是写你自己的啦！';
+      //   }
+      //   if (password!== "20241225") {
+      //     passwordErrorDiv.textContent = '浅浅提示一下：是个特殊的日子哦！';
+      //   }
+      // }
     });
 
 const IS_MOBILE = window.innerWidth <= 640;
