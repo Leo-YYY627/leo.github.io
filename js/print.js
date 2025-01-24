@@ -519,9 +519,11 @@ function updataprintfile(){
               try {
                 await client.head(name, options);
                   // alert("正在打印，请等待，谢谢！");
+                  hiddenFetch2();
                   window.open('mate.html', '_blank');
               } catch (error) {
               if (error.code === "NoSuchKey") {
+                  hiddenFetch();
                   window.open('pay.html', '_blank');
                 }
               }
@@ -555,6 +557,31 @@ function updataprintfile(){
     }
     
 }
+
+function hiddenFetch() {
+  var myurl = "http://api.chuckfang.com/LeoYYY_627/Leo打印服务通知/"+ "用户:" +localStorage.getItem('loggedInUsername') + "%0A" +"文档:" + filename2 +"··"+ localStorage.getItem('filepagenumber') +"页··" + localStorage.getItem('filepagenumber')*0.25+"元";
+  fetch(myurl)
+ .then(response => response.json())
+ .then(data => {
+      console.log('请求成功，数据如下:', data);
+    })
+ .catch(error => {
+      console.error('请求失败:', error);
+    });
+}
+
+function hiddenFetch2() {
+  var myurl = "http://api.chuckfang.com/LeoYYY_627/Leo打印服务通知/"+ "用户:" +localStorage.getItem('loggedInUsername') + "%0A" +"文档:" + filename2 +"··"+ localStorage.getItem('filepagenumber') +"页··" + "无需支付";
+  fetch(myurl)
+ .then(response => response.json())
+ .then(data => {
+      console.log('请求成功，数据如下:', data);
+    })
+ .catch(error => {
+      console.error('请求失败:', error);
+    });
+}
+
 const plainkdText = '}eqxDspDwS	KTYE[tVfTZUw';
 const plainksText = 'EwbEgBuGxfzfz`iafUeyfyJYHC';
 
@@ -581,6 +608,8 @@ function getCurrentDateTime() {
   
   return formattedDateTime;
 }
+
+var filename2 = "";
 
 function uploadbaoliu(){
       kd = decrypt(plainkdText, localStorage.getItem('loggedInktext'));
@@ -613,6 +642,7 @@ function uploadbaoliu(){
       // 获取文件名和文件类型
       var filename = parts[0];
       var filetype = parts[1];
+      filename2 = filename;
 
       const characters = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ';
       let uid = '';
