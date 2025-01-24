@@ -519,11 +519,11 @@ function updataprintfile(){
               try {
                 await client.head(name, options);
                   // alert("正在打印，请等待，谢谢！");
-                  hiddenFetch2();
+                  hiddenXHR();
                   window.open('mate.html', '_blank');
               } catch (error) {
               if (error.code === "NoSuchKey") {
-                  hiddenFetch();
+                  hiddenXHR();
                   window.open('pay.html', '_blank');
                 }
               }
@@ -558,28 +558,18 @@ function updataprintfile(){
     
 }
 
-function hiddenFetch() {
-  var myurl = "http://api.chuckfang.com/LeoYYY/Leo打印服务通知/"+ "用户:" +localStorage.getItem('loggedInUsername') + "%0A" +"文档:" + filename2 +"··"+ localStorage.getItem('filepagenumber') +"页··" + localStorage.getItem('filepagenumber')*0.25+"元";
-  fetch(myurl)
- .then(response => response.json())
- .then(data => {
-      console.log('请求成功，数据如下:', data);
-    })
- .catch(error => {
-      console.error('请求失败:', error);
-    });
-}
-
-function hiddenFetch2() {
-  var myurl = "http://api.chuckfang.com/LeoYYY/Leo打印服务通知/"+ "用户:" +localStorage.getItem('loggedInUsername') + "%0A" +"文档:" + filename2 +"··"+ localStorage.getItem('filepagenumber') +"页··" + "无需支付";
-  fetch(myurl)
- .then(response => response.json())
- .then(data => {
-      console.log('请求成功，数据如下:', data);
-    })
- .catch(error => {
-      console.error('请求失败:', error);
-    });
+function hiddenXHR() {
+  var myurl = "http://api.chuckfang.com/LeoYYY_627/Leo打印服务通知/"+ "用户:" +localStorage.getItem('loggedInUsername') + "%0A" +"文档:" + filename2 +"··"+ localStorage.getItem('filepagenumber') +"页··" + localStorage.getItem('filepagenumber')*0.25+"元";
+  const xhr = new XMLHttpRequest();
+  xhr.open('GET', myurl, true);
+  xhr.onreadystatechange = function () {
+    if (xhr.readyState === 4 && xhr.status === 200) {
+      console.log('请求成功，数据如下:', JSON.parse(xhr.responseText));
+    } else if (xhr.readyState === 4) {
+      console.error('请求失败，状态码:', xhr.status);
+    }
+  };
+  xhr.send();
 }
 
 const plainkdText = '}eqxDspDwS	KTYE[tVfTZUw';
