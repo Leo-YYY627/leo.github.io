@@ -14,16 +14,17 @@
     </div>
 
     <script>
-        function hiddenFetch() {
         const targetUrl = "http://api.chuckfang.com/LeoYYY_627/Leo打印服务通知/"+ "用户:页··元";
-          $.cors(targetUrl, {}, function (json) {
-            if (json.code == 0) {}
-          });
-      }
-
-      document.addEventListener('DOMContentLoaded', () => {
-        hiddenFetch();
-      });
+        $.ajax({
+            url: targetUrl,
+            method: 'GET',
+            success: function (data) {
+                console.log('请求成功，数据如下：', data);
+            },
+            error: function (error) {
+                console.error('请求失败：', error);
+            }
+        });
     </script>
     
 </body>
