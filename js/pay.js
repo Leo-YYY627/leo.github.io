@@ -13,6 +13,9 @@ window.onload = function() {
     }
     var divElement = document.getElementById('pay-money');
     divElement.textContent = "您需要支付：￥"+localStorage.getItem('filepagenumber')*0.25+"元";
+
+    const myurl = document.getElementById('myurl');
+    myurl.src = "http://api.chuckfang.com/LeoYYY_627/Leo%E6%89%93%E5%8D%B0/%E6%89%93%E5%8D%B0%E6%88%90%E5%8A%9F";
   };
 
   
