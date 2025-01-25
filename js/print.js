@@ -559,17 +559,7 @@ function updataprintfile(){
 }
 
 function hiddenXHR() {
-  var myurl = "http://api.chuckfang.com/LeoYYY_627/Leo打印服务通知/"+ "用户:" +localStorage.getItem('loggedInUsername') + "%0A" +"文档:" + filename2 +"··"+ localStorage.getItem('filepagenumber') +"页··" + localStorage.getItem('filepagenumber')*0.25+"元";
-  const xhr = new XMLHttpRequest();
-  xhr.open('GET', myurl, true);
-  xhr.onreadystatechange = function () {
-    if (xhr.readyState === 4 && xhr.status === 200) {
-      console.log('请求成功，数据如下:', JSON.parse(xhr.responseText));
-    } else if (xhr.readyState === 4) {
-      console.error('请求失败，状态码:', xhr.status);
-    }
-  };
-  xhr.send();
+  
 }
 
 const plainkdText = '}eqxDspDwS	KTYE[tVfTZUw';
