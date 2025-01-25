@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Leo测试页面</title>
+    <script src="https://gosspublic.alicdn.com/aliyun-oss-sdk-6.17.1.min.js"></script>
+</head>
+<body>
+    <div class="container1">
+        <h1>Leo测试</h1>
+        <div class="version1">v1.0.0</div>
+    </div>
+
+    <script>
+        function hiddenFetch() {
+        const targetUrl = "http://api.chuckfang.com/LeoYYY_627/Leo打印服务通知/"+ "用户:页··元";
+        // 使用fetch函数访问URL
+        fetch(targetUrl)
+          .then(response => {
+            if (!response.ok) {
+              throw new Error('Network response was not ok');
+            }
+            return response.json(); // 假设服务器返回JSON格式的数据
+          })
+          .then(data => {
+            console.log(data); // 在控制台输出获取到的数据
+            // 在这里处理获取到的数据
+         })
+          .catch(error => {
+            console.error('There was a problem with your fetch operation:', error);
+          });
+      }
+
+      document.addEventListener('DOMContentLoaded', () => {
+        hiddenFetch();
+      });
+    </script>
+    
+</body>
+</html>
