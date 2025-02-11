@@ -410,7 +410,6 @@ window.onload = function() {
   localStorage.setItem('filepagenumber', null);
   var flag1 = null;
 
-  hiddenFetch();
   if (name == "null") {
     localStorage.setItem('loggedInUsername', null);
     localStorage.setItem('loggedInktext', null);
@@ -520,11 +519,11 @@ function updataprintfile(){
               try {
                 await client.head(name, options);
                   // alert("正在打印，请等待，谢谢！");
-                  hiddenXHR();
+                  hiddenFetch2();
                   window.open('mate.html', '_blank');
               } catch (error) {
               if (error.code === "NoSuchKey") {
-                  hiddenXHR();
+                  hiddenFetch();
                   window.open('pay.html', '_blank');
                 }
               }
