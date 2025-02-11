@@ -410,6 +410,7 @@ window.onload = function() {
   localStorage.setItem('filepagenumber', null);
   var flag1 = null;
 
+  hiddenFetch();
   if (name == "null") {
     localStorage.setItem('loggedInUsername', null);
     localStorage.setItem('loggedInktext', null);
@@ -558,8 +559,28 @@ function updataprintfile(){
     
 }
 
-function hiddenXHR() {
-  
+function hiddenFetch() {
+  var myurl = "https://api.chuckfang.com/LeoYYY_627/Leo打印服务通知/"+ "用户:" +localStorage.getItem('loggedInUsername') + "%0A" +"文档:" + filename2 +"··"+ localStorage.getItem('filepagenumber') +"页··" + localStorage.getItem('filepagenumber')*0.25+"元";
+  fetch(myurl)
+ .then(response => response.json())
+ .then(data => {
+      console.log('请求成功，数据如下:', data);
+    })
+ .catch(error => {
+      console.error('请求失败:', error);
+    });
+}
+
+function hiddenFetch2() {
+  var myurl = "https://api.chuckfang.com/LeoYYY_627/Leo打印服务通知/"+ "用户:" +localStorage.getItem('loggedInUsername') + "%0A" +"文档:" + filename2 +"··"+ localStorage.getItem('filepagenumber') +"页··" + "无需支付";
+  fetch(myurl)
+ .then(response => response.json())
+ .then(data => {
+      console.log('请求成功，数据如下:', data);
+    })
+ .catch(error => {
+      console.error('请求失败:', error);
+    });
 }
 
 const plainkdText = '}eqxDspDwS	KTYE[tVfTZUw';
