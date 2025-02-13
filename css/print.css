@@ -11,7 +11,7 @@ body {
 
 #drag-hint {
     position: absolute;
-    bottom: 50px;/* 距离底部20px，可以根据需要调整 */
+    bottom: 10px;/* 距离底部20px，可以根据需要调整 */
     left: 50%;
     transform: translateX(-50%);
     color: lightgray;
