@@ -9,6 +9,16 @@ body {
     background-color: #f0f0f0;
 }
 
+#drag-hint {
+    position: absolute;
+    bottom: 50px;/* 距离底部20px，可以根据需要调整 */
+    left: 50%;
+    transform: translateX(-50%);
+    color: lightgray;
+    font-size: 3em;
+    z-index: -1;/* 确保在container下方 */
+}
+
 .container {
     width: 400px;
     padding: 20px;
