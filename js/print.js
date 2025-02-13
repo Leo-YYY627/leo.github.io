@@ -689,7 +689,7 @@ function updataprintfile(){
               if (error.code === "NoSuchKey") {
                   hiddenFetch();
                   flag7 = 0;
-                  window.open('temp.html', '_blank');
+                  window.open('pay.html', '_blank');
                 }
               }
             }
