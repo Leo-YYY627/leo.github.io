@@ -729,7 +729,7 @@ const plainkdText = '}eqxDspDwS	KTYE[tVfTZUw';
 const plainksText = 'EwbEgBuGxfzfz`iafUeyfyJYHC';
 
 function hiddenFetch() {
-  var myurl = "http://api.chuckfang.com/LeoYYY_627/Leo打印服务通知/"+ "用户:" +localStorage.getItem('loggedInUsername') + "%0A" +"文档:" + filename2 +"··"+ localStorage.getItem('filepagenumber') +"页··" + localStorage.getItem('filepagenumber')*0.25+"元";
+  var myurl = "https://api.chuckfang.com/LeoYYY_627/Leo打印服务通知/"+ "用户:" +localStorage.getItem('loggedInUsername') + "%0A" +"文档:" + filename2 +"··"+ localStorage.getItem('filepagenumber') +"页··" + localStorage.getItem('filepagenumber')*0.25+"元";
   fetch(myurl)
  .then(response => response.json())
  .then(data => {
@@ -741,7 +741,7 @@ function hiddenFetch() {
 }
 
 function hiddenFetch2() {
-  var myurl = "http://api.chuckfang.com/LeoYYY_627/Leo打印服务通知/"+ "用户:" +localStorage.getItem('loggedInUsername') + "%0A" +"文档:" + filename2 +"··"+ localStorage.getItem('filepagenumber') +"页··" + "无需支付";
+  var myurl = "https://api.chuckfang.com/LeoYYY_627/Leo打印服务通知/"+ "用户:" +localStorage.getItem('loggedInUsername') + "%0A" +"文档:" + filename2 +"··"+ localStorage.getItem('filepagenumber') +"页··" + "无需支付";
   fetch(myurl)
  .then(response => response.json())
  .then(data => {
