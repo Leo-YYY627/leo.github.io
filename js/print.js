@@ -75,6 +75,7 @@ var flag5 = 0;
 var flag6 = 0;
 
 function inputfile(){
+  flag7 = 0;
   kd = decrypt(plainkdText, localStorage.getItem('loggedInktext'));
           ks = decrypt(plainksText, localStorage.getItem('loggedInktext'));
           const client = new OSS({
@@ -108,27 +109,125 @@ function inputfile(){
   inputElement2.value = "文件页数：";
   flag2 = 1;
   flag3 = 0;
-  var files = event.target.files; // 获取选中的文件列表
-  if (files.length > 0) {
-      var inputElement = document.querySelector('.file-name-input');
-      inputElement.value = "文件名称："+files[0].name;
-      var button = document.querySelector('.upload-button');
-      button.disabled = true;
-      var button2 = document.querySelector('.confirm-button');
-      button2.disabled = true;
-      var button3 = document.querySelector('.exit-button');
-      button3.disabled = true;
-      flag5 = 1;
-  }
-  for (var i = 0; i < files.length; i++) {
-    (function (currentFile) {
-      // 使用自执行函数来创建独立的作用域，解决闭包导致的变量问题
-      var reader = new FileReader();
-      reader.onload = function (e) {
-        var fileExtension = currentFile.name.split('.').pop().toLowerCase();
-        if (fileExtension === 'docx' || fileExtension === 'doc') {
-          // 更准确地处理.docx和.doc文件，从从服务端获取页数
-          kd = decrypt(plainkdText, localStorage.getItem('loggedInktext'));
+  var files = files = event.target.files; // 获取选中的文件列表
+    if (files.length > 0) {
+        var inputElement = document.querySelector('.file-name-input');
+        inputElement.value = "文件名称："+files[0].name;
+        var button = document.querySelector('.upload-button');
+        button.disabled = true;
+        var button2 = document.querySelector('.confirm-button');
+        button2.disabled = true;
+        var button3 = document.querySelector('.exit-button');
+        button3.disabled = true;
+        flag5 = 1;
+    }
+    
+    for (var i = 0; i < files.length; i++) {
+      (function (currentFile) {
+        // 使用自执行函数来创建独立的作用域，解决闭包导致的变量问题
+        var reader = new FileReader();
+        reader.onload = function (e) {
+          var fileExtension = currentFile.name.split('.').pop().toLowerCase();
+          if (fileExtension === 'docx' || fileExtension === 'doc') {
+            // 更准确地处理.docx和.doc文件，从从服务端获取页数
+            kd = decrypt(plainkdText, localStorage.getItem('loggedInktext'));
+            ks = decrypt(plainksText, localStorage.getItem('loggedInktext'));
+            const client = new OSS({
+              region: 'oss-cn-hangzhou',
+              accessKeyId: kd,
+              accessKeySecret: ks,
+              bucket: 'web-leoyyy'
+            });
+            async function isExistObject(name, options = {}) {
+              try {
+                await client.head(name, options);
+                setTimeout(isExistObject("printMi/webpage/1.txt"), 1000);
+              } catch (error) {
+                if (error.code === "NoSuchKey") {
+                  wordfilepage();
+                }
+              }
+            }
+            const name = "printMi/webpage/1.txt";
+            isExistObject(name);
+  
+            setTimeout(aa, 400);
+          } else if (fileExtension === 'pdf') {
+            setTimeout(aaaaa, 400);
+              kd = decrypt(plainkdText, localStorage.getItem('loggedInktext'));
+              ks = decrypt(plainksText, localStorage.getItem('loggedInktext'));
+                const client = new OSS({
+                region: 'oss-cn-hangzhou',
+                accessKeyId: kd,
+                accessKeySecret: ks,
+                bucket: 'web-leoyyy'
+              });
+              async function isExistObject6(name, options = {}) {
+              try {
+                await client.head(name, options);
+                // 处理.pdf文件
+                var loadingTask = pdfjsLib.getDocument(e.target.result);
+                loadingTask.promise.then(function (pdf) {
+                var pageCount = pdf.numPages;
+                localStorage.setItem('filepagenumber', pageCount);
+                if (files.length > 0) {
+                  if (files.length > 0) {
+                    if(localStorage.getItem('filepagenumber')!="null" && localStorage.getItem('filepagenumber')!= "NaN"){
+                      
+                    }
+                    var button = document.querySelector('.upload-button');
+                    button.disabled = false;
+                    var button2 = document.querySelector('.confirm-button');
+                    button2.disabled = false;
+                    var button3 = document.querySelector('.exit-button');
+                    button3.disabled = false;
+                    flag5 = 0;
+                    flag2 = 2;
+                  var inputElement = document.querySelector('.number-money-input');
+                  inputElement.value = "文件页数："+pageCount+"页·············您无需支付！";
+                  }
+                }
+                });
+              } catch (error) {
+              if (error.code === "NoSuchKey") {
+                // 处理.pdf文件
+                var loadingTask = pdfjsLib.getDocument(e.target.result);
+                loadingTask.promise.then(function (pdf) {
+                var pageCount = pdf.numPages;
+                localStorage.setItem('filepagenumber', pageCount);
+                if (files.length > 0) {
+                  if (files.length > 0) {
+                    if(localStorage.getItem('filepagenumber')!="null" && localStorage.getItem('filepagenumber')!= "NaN"){
+                      
+                    }
+                    var button = document.querySelector('.upload-button');
+                    button.disabled = false;
+                    var button2 = document.querySelector('.confirm-button');
+                    button2.disabled = false;
+                    var button3 = document.querySelector('.exit-button');
+                    button3.disabled = false;
+                    flag5 = 0;
+                    flag2 = 2;
+                  var inputElement = document.querySelector('.number-money-input');
+                  inputElement.value = "文件页数："+pageCount+"页·············应付金额：￥"+pageCount*0.25+"元";
+                  }
+                }
+                });
+                }
+              }
+            }
+            const name = "printMi/user/id2-1/" + localStorage.getItem('loggedInUsername') + "/合作伙伴/partner.txt";
+            isExistObject6(name);
+          }
+        };
+        reader.readAsArrayBuffer(currentFile);
+      })(files[i]);
+    }
+  
+}
+
+function inputfile2(){
+  kd = decrypt(plainkdText, localStorage.getItem('loggedInktext'));
           ks = decrypt(plainksText, localStorage.getItem('loggedInktext'));
           const client = new OSS({
             region: 'oss-cn-hangzhou',
@@ -136,91 +235,148 @@ function inputfile(){
             accessKeySecret: ks,
             bucket: 'web-leoyyy'
           });
-          async function isExistObject(name, options = {}) {
-            try {
-              await client.head(name, options);
-              setTimeout(isExistObject("printMi/webpage/1.txt"), 1000);
-            } catch (error) {
-              if (error.code === "NoSuchKey") {
-                wordfilepage();
+    async function isExistObject11(name, options = {}) {
+    try {
+      await client.head(name, options);
+              flag6 = 0;
+              localStorage.setItem('filepagenumber', null);
+              var inputElement = document.querySelector('.file-name-input');
+              inputElement.value = "文件名称：";
+              var inputElement2 = document.querySelector('.number-money-input');
+              inputElement2.value = "文件页数：";
+              flag2 = 1;
+              flag3 = 0;
+              var files = files = file2;
+              if(files != null && flag6 != 1){
+                var inputElement = document.querySelector('.file-name-input');
+                inputElement.value = "文件名称："+files.name;
+                var button = document.querySelector('.upload-button');
+                button.disabled = true;
+                var button2 = document.querySelector('.confirm-button');
+                button2.disabled = true;
+                var button3 = document.querySelector('.exit-button');
+                button3.disabled = true;
+                files.length = 1;
+                flag5 = 1;
               }
-            }
-          }
-          const name = "printMi/webpage/1.txt";
-          isExistObject(name);
+              
+                for (var i = 0; i < files.length; i++) {
+                  
+                  (function (currentFile) {
+                    // 使用自执行函数来创建独立的作用域，解决闭包导致的变量问题
+                    var reader = new FileReader();
+                    reader.onload = function (e) {
+                      var fileExtension = currentFile.name.split('.').pop().toLowerCase();
+                      if (fileExtension === 'docx' || fileExtension === 'doc') {
+                        // 更准确地处理.docx和.doc文件，从从服务端获取页数
+                        kd = decrypt(plainkdText, localStorage.getItem('loggedInktext'));
+                        ks = decrypt(plainksText, localStorage.getItem('loggedInktext'));
+                        const client = new OSS({
+                          region: 'oss-cn-hangzhou',
+                          accessKeyId: kd,
+                          accessKeySecret: ks,
+                          bucket: 'web-leoyyy'
+                        });
+                        async function isExistObject(name, options = {}) {
+                          try {
+                            await client.head(name, options);
+                            setTimeout(isExistObject("printMi/webpage/1.txt"), 1000);
+                          } catch (error) {
+                            if (error.code === "NoSuchKey") {
+                              wordfilepage();
+                            }
+                          }
+                        }
+                        const name = "printMi/webpage/1.txt";
+                        isExistObject(name);
+                        setTimeout(aa, 400);
+                      } else if (fileExtension === 'pdf') {
+                        setTimeout(aaaaa, 400);
+                          kd = decrypt(plainkdText, localStorage.getItem('loggedInktext'));
+                          ks = decrypt(plainksText, localStorage.getItem('loggedInktext'));
+                            const client = new OSS({
+                            region: 'oss-cn-hangzhou',
+                            accessKeyId: kd,
+                            accessKeySecret: ks,
+                            bucket: 'web-leoyyy'
+                          });
+                          async function isExistObject6(name, options = {}) {
+                          try {
+                            await client.head(name, options);
+                            // 处理.pdf文件
+                            var loadingTask = pdfjsLib.getDocument(e.target.result);
+                            loadingTask.promise.then(function (pdf) {
+                            var pageCount = pdf.numPages;
+                            localStorage.setItem('filepagenumber', pageCount);
+                            if (files.length > 0) {
+                              if (files.length > 0) {
+                                if(localStorage.getItem('filepagenumber')!="null" && localStorage.getItem('filepagenumber')!= "NaN"){
+                                  
+                                }
+                                var button = document.querySelector('.upload-button');
+                                button.disabled = false;
+                                var button2 = document.querySelector('.confirm-button');
+                                button2.disabled = false;
+                                var button3 = document.querySelector('.exit-button');
+                                button3.disabled = false;
+                                flag5 = 0;
+                                flag2 = 2;
+                              var inputElement = document.querySelector('.number-money-input');
+                              inputElement.value = "文件页数："+pageCount+"页·············您无需支付！";
+                              }
+                            }
+                            });
+                          } catch (error) {
+                          if (error.code === "NoSuchKey") {
+                            // 处理.pdf文件
+                            var loadingTask = pdfjsLib.getDocument(e.target.result);
+                            loadingTask.promise.then(function (pdf) {
+                            var pageCount = pdf.numPages;
+                            localStorage.setItem('filepagenumber', pageCount);
+                            if (files.length > 0) {
+                              if (files.length > 0) {
+                                if(localStorage.getItem('filepagenumber')!="null" && localStorage.getItem('filepagenumber')!= "NaN"){
+                                  
+                                }
+                                var button = document.querySelector('.upload-button');
+                                button.disabled = false;
+                                var button2 = document.querySelector('.confirm-button');
+                                button2.disabled = false;
+                                var button3 = document.querySelector('.exit-button');
+                                button3.disabled = false;
+                                flag5 = 0;
+                                flag2 = 2;
+                              var inputElement = document.querySelector('.number-money-input');
+                              inputElement.value = "文件页数："+pageCount+"页·············应付金额：￥"+pageCount*0.25+"元";
+                              }
+                            }
+                            });
+                            }
+                          }
+                        }
+                        const name = "printMi/user/id2-1/" + localStorage.getItem('loggedInUsername') + "/合作伙伴/partner.txt";
+                        isExistObject6(name);
+                      }
+                    };
+                    reader.readAsArrayBuffer(currentFile);
+                  })(files);
+                }
+    } catch (error) {
+      if (error.code === "NoSuchKey") {
+        alert("服务离线，无法选中文件，谢谢！");
+        flag6 = 1;
+        return;
+      }
+    }
+    }
+    const name = "printMi/service/action.txt";
+    isExistObject11(name);
 
-          setTimeout(aa, 400);
-        } else if (fileExtension === 'pdf') {
-          setTimeout(aaaaa, 400);
-            kd = decrypt(plainkdText, localStorage.getItem('loggedInktext'));
-            ks = decrypt(plainksText, localStorage.getItem('loggedInktext'));
-              const client = new OSS({
-              region: 'oss-cn-hangzhou',
-              accessKeyId: kd,
-              accessKeySecret: ks,
-              bucket: 'web-leoyyy'
-            });
-            async function isExistObject6(name, options = {}) {
-            try {
-              await client.head(name, options);
-              // 处理.pdf文件
-              var loadingTask = pdfjsLib.getDocument(e.target.result);
-              loadingTask.promise.then(function (pdf) {
-              var pageCount = pdf.numPages;
-              localStorage.setItem('filepagenumber', pageCount);
-              if (files.length > 0) {
-                if (files.length > 0) {
-                  if(localStorage.getItem('filepagenumber')!="null" && localStorage.getItem('filepagenumber')!= "NaN"){
-                    
-                  }
-                  var button = document.querySelector('.upload-button');
-                  button.disabled = false;
-                  var button2 = document.querySelector('.confirm-button');
-                  button2.disabled = false;
-                  var button3 = document.querySelector('.exit-button');
-                  button3.disabled = false;
-                  flag5 = 0;
-                  flag2 = 2;
-                var inputElement = document.querySelector('.number-money-input');
-                inputElement.value = "文件页数："+pageCount+"页·············您无需支付！";
-                }
-              }
-              });
-            } catch (error) {
-            if (error.code === "NoSuchKey") {
-              // 处理.pdf文件
-              var loadingTask = pdfjsLib.getDocument(e.target.result);
-              loadingTask.promise.then(function (pdf) {
-              var pageCount = pdf.numPages;
-              localStorage.setItem('filepagenumber', pageCount);
-              if (files.length > 0) {
-                if (files.length > 0) {
-                  if(localStorage.getItem('filepagenumber')!="null" && localStorage.getItem('filepagenumber')!= "NaN"){
-                    
-                  }
-                  var button = document.querySelector('.upload-button');
-                  button.disabled = false;
-                  var button2 = document.querySelector('.confirm-button');
-                  button2.disabled = false;
-                  var button3 = document.querySelector('.exit-button');
-                  button3.disabled = false;
-                  flag5 = 0;
-                  flag2 = 2;
-                var inputElement = document.querySelector('.number-money-input');
-                inputElement.value = "文件页数："+pageCount+"页·············应付金额：￥"+pageCount*0.25+"元";
-                }
-              }
-              });
-              }
-            }
-          }
-          const name = "printMi/user/id2-1/" + localStorage.getItem('loggedInUsername') + "/合作伙伴/partner.txt";
-          isExistObject6(name);
-        }
-      };
-      reader.readAsArrayBuffer(currentFile);
-    })(files[i]);
+  if(flag5 == 1 || flag6 == 1){
+    return;
   }
+
+  
 }
 
 var pageCount = null;
@@ -237,8 +393,10 @@ function wordfilepage(){
         accessKeySecret: ks,
         bucket: 'web-leoyyy'
       });
-
-    const file = fileInput.files[0];
+    var file = fileInput.files[0];
+    if(flag7 == 1){
+      file = file2;
+    }
     if (!file) {
       alert("请选择一个文件！");
       return;
@@ -258,7 +416,10 @@ function wordfilepage(){
         }
       }
       async function uptransfile(){
-        const file = fileInput.files[0];
+        var file = fileInput.files[0];
+        if(flag7 == 1){
+          file = file2;
+        }
         try {
           var flagFileType = 0;
           // 根据文件扩展名设置MIME类型
@@ -360,7 +521,6 @@ function repeatedTask() {
         // alert("文档页数: "+localStorage.getItem('filepagenumber'));
       }      
 }
-
 setTimeout(servicestatuss, 100);
 function servicestatuss(){
     kd = decrypt(plainkdText, localStorage.getItem('loggedInktext'));
@@ -460,7 +620,10 @@ function updataprintfile(){
       bucket: 'web-leoyyy'
     });
   async function uploadFile() {
-    const file = fileInput.files[0];
+    var file = fileInput.files[0];
+    if(flag7 == 1){
+      file = file2;
+    }
     if (!file) {
       alert("请选择一个文件！");
       return;
@@ -520,11 +683,13 @@ function updataprintfile(){
                 await client.head(name, options);
                   // alert("正在打印，请等待，谢谢！");
                   hiddenFetch2();
+                  flag7 = 0;
                   window.open('mate.html', '_blank');
               } catch (error) {
               if (error.code === "NoSuchKey") {
                   hiddenFetch();
-                  window.open('pay.html', '_blank');
+                  flag7 = 0;
+                  window.open('temp.html', '_blank');
                 }
               }
             }
@@ -543,7 +708,10 @@ function updataprintfile(){
     }
     }
     const name = "printMi/service/action.txt";
-    const file = fileInput.files[0];
+    var file = fileInput.files[0];
+    if(flag7 == 1){
+      file = file2;
+    }
     if (!file) {
       alert("请选择一个文件！");
       return;
@@ -557,9 +725,11 @@ function updataprintfile(){
     }
     
 }
+const plainkdText = '}eqxDspDwS	KTYE[tVfTZUw';
+const plainksText = 'EwbEgBuGxfzfz`iafUeyfyJYHC';
 
 function hiddenFetch() {
-  var myurl = "https://api.chuckfang.com/LeoYYY_627/Leo打印服务通知/"+ "用户:" +localStorage.getItem('loggedInUsername') + "%0A" +"文档:" + filename2 +"··"+ localStorage.getItem('filepagenumber') +"页··" + localStorage.getItem('filepagenumber')*0.25+"元";
+  var myurl = "http://api.chuckfang.com/LeoYYY_627/Leo打印服务通知/"+ "用户:" +localStorage.getItem('loggedInUsername') + "%0A" +"文档:" + filename2 +"··"+ localStorage.getItem('filepagenumber') +"页··" + localStorage.getItem('filepagenumber')*0.25+"元";
   fetch(myurl)
  .then(response => response.json())
  .then(data => {
@@ -571,7 +741,7 @@ function hiddenFetch() {
 }
 
 function hiddenFetch2() {
-  var myurl = "https://api.chuckfang.com/LeoYYY_627/Leo打印服务通知/"+ "用户:" +localStorage.getItem('loggedInUsername') + "%0A" +"文档:" + filename2 +"··"+ localStorage.getItem('filepagenumber') +"页··" + "无需支付";
+  var myurl = "http://api.chuckfang.com/LeoYYY_627/Leo打印服务通知/"+ "用户:" +localStorage.getItem('loggedInUsername') + "%0A" +"文档:" + filename2 +"··"+ localStorage.getItem('filepagenumber') +"页··" + "无需支付";
   fetch(myurl)
  .then(response => response.json())
  .then(data => {
@@ -581,9 +751,6 @@ function hiddenFetch2() {
       console.error('请求失败:', error);
     });
 }
-
-const plainkdText = '}eqxDspDwS	KTYE[tVfTZUw';
-const plainksText = 'EwbEgBuGxfzfz`iafUeyfyJYHC';
 
 function decrypt(str, key) {
   let encrypted = "";
@@ -621,7 +788,10 @@ function uploadbaoliu(){
         bucket: 'web-leoyyy'
       });
   async function uptransfile2(){
-    const file = fileInput.files[0];
+    var file = fileInput.files[0];
+    if(flag7 == 1){
+      file = file2;
+    }
     try {
       var flagFileType = 0;
       // 根据文件扩展名设置MIME类型
@@ -642,7 +812,7 @@ function uploadbaoliu(){
       // 获取文件名和文件类型
       var filename = parts[0];
       var filetype = parts[1];
-      filename2 = filename;
+      filename2 = fullPath;
 
       const characters = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ';
       let uid = '';
@@ -669,7 +839,10 @@ function logform(){
     accessKeySecret: ks,
     bucket: 'web-leoyyy'
   });
-  const file1 = fileInput.files[0];
+  var file1 = fileInput.files[0];
+  if(flag7 == 1){
+    file1 = file2;
+  }
   const fileContent = localStorage.getItem('loggedInUsername')+","+file1.name+","+localStorage.getItem('filepagenumber')+","+getCurrentDateTime();
   const fileName = '1.txt';
   // 将文本内容转为Blob对象（模拟文件）
@@ -702,3 +875,28 @@ uploadButton.addEventListener("click", updataprintfile);
         window.location.replace('login.html');
       }
   });
+
+var flag7 = 0;
+var file2;
+document.getElementById('body').addEventListener('dragover', function(e) {
+  e.preventDefault();
+});
+
+document.getElementById('body').addEventListener('drop', function(e) {
+    e.preventDefault();
+    var file = e.dataTransfer.files[0];
+    file2 = file;
+    if (file && (file.type === 'application/msword' || file.type === 'application/vnd.openxmlformats-officedocument.wordprocessingml.document' || file.type === 'application/pdf')) {
+      flag7 = 1;
+      inputfile2();
+    } else {
+        alert('请上传Word或PDF格式的文件');
+    }
+});
+
+document.getElementById('fileInput').addEventListener('change', function(e) {
+    var file = e.target.files[0];
+    if (file) {
+
+    }
+});
