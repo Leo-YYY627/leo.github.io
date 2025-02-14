@@ -11,7 +11,7 @@ body {
 
 #drag-hint {
     position: absolute;
-    bottom: 10px;/* 距离底部20px，可以根据需要调整 */
+    bottom: 50px;/* 距离底部20px，可以根据需要调整 */
     left: 50%;
     transform: translateX(-50%);
     color: lightgray;
@@ -37,7 +37,7 @@ body {
 .header h1 {
     margin: 0;
     font-size: 24px;
-    color: #333;
+    color: #007bff;
 }
 
 .header .version {
@@ -64,6 +64,7 @@ body {
     color: #333;
 }
 
+
 .fileInput2 {
     display: inline-block;
     padding: 10px 20px;
@@ -88,6 +89,7 @@ body {
 .fileInput2:active {
     background-color: #004085;
 }
+
 
 .upload-button {
     display: block;
@@ -115,7 +117,7 @@ body {
 
 .file-format-hint {
     font-size: 12px;
-    color: #ff0000;
+    color: rgb(163, 163, 163);
     margin-bottom: 15px;
 }
 
@@ -129,22 +131,22 @@ body {
     padding: 10px;
     border: none;
     border-radius: 4px;
-    background-color: #28a745;
+    background-color: #007bff;
     color: #fff;
     font-size: 16px;
     cursor: pointer;
 }
 
 .exit-button {
-    background-color: #dc3545;
+    background-color: #71b5ff;
 }
 
 .confirm-button:hover {
-    background-color: #218838;
+    background-color: #0056b3;
 }
 
 .exit-button:hover {
-    background-color: #c82333;
+    background-color: #4094ef;
 }
 
 .no-interaction-input {
