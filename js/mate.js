@@ -5,7 +5,6 @@ window.onload = function() {
   
     if (name == "null") {
       localStorage.setItem('loggedInUsername', null);
-      localStorage.setItem('loggedInktext', null);
       window.location.replace('login.html');
     }else{
       const accountInfoElement = document.getElementById('account-info');
