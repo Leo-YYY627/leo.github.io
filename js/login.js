@@ -4,12 +4,26 @@ var ktext = null;
 var kd = null;
 var ks = null;
 
+window.onload = function() {
+  if(localStorage.getItem('loggedInktext') == "null"){
+    var input = document.getElementById('key');
+    input.style.display = 'block';
+  }else{
+    var input = document.getElementById('key');
+    input.style.display = 'none';
+    ktext = localStorage.getItem('loggedInktext');
+  }
+}
 
 document.getElementById('loginForm').addEventListener('submit', function(event) {
     event.preventDefault();
     username = document.getElementById('username').value;
     password = document.getElementById('password').value;
-    ktext = document.getElementById('key').value;
+    if(localStorage.getItem('loggedInktext') == "null"){
+      ktext = document.getElementById('key').value;
+    }else{
+      ktext = localStorage.getItem('loggedInktext');
+    }
     kd = decrypt(plainkdText, ktext);
     ks = decrypt(plainksText, ktext);
     // alert(kd+ks);
