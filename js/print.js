@@ -870,11 +870,22 @@ uploadButton.addEventListener("click", updataprintfile);
       if(userConEx){
         window.
         localStorage.setItem('loggedInUsername', null);
-        localStorage.setItem('loggedInktext', null);
         localStorage.setItem('filepagenumber', null);
         window.location.replace('login.html');
       }
   });
+
+// 注销按钮
+function zhuxiao(){
+  var userConEx = confirm("您确定注销登录？");
+  if(userConEx){
+    window.
+    localStorage.setItem('loggedInUsername', null);
+    localStorage.setItem('loggedInktext', null);
+    localStorage.setItem('filepagenumber', null);
+    window.location.replace('login.html');
+  }
+}
 
 var flag7 = 0;
 var file2;
