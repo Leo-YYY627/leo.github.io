@@ -14,7 +14,7 @@ body {
     bottom: 30px;/* 距离底部20px，可以根据需要调整 */
     left: 50%;
     transform: translateX(-50%);
-    color: lightgray;
+    color: #007bff;
     font-size: 2em;
     z-index: -1;/* 确保在container下方 */
 }
