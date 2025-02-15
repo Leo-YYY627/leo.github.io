@@ -11,11 +11,11 @@ body {
 
 #drag-hint {
     position: absolute;
-    bottom: 50px;/* 距离底部20px，可以根据需要调整 */
+    bottom: 30px;/* 距离底部20px，可以根据需要调整 */
     left: 50%;
     transform: translateX(-50%);
     color: lightgray;
-    font-size: 3em;
+    font-size: 2em;
     z-index: -1;/* 确保在container下方 */
 }
 
