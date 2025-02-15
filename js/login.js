@@ -65,6 +65,7 @@ function oss(){
           isExistObject(name);
     } else {
         alert('请勾选《用户和隐私协议》');
+        checkbox.checked = true;
     }
     
 }
