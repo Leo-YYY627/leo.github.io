@@ -53,6 +53,7 @@ function oss(){
             //   window.alert("登录成功！");
               localStorage.setItem('loggedInUsername', username);
               localStorage.setItem('loggedInktext', ktext);
+              localStorage.setItem('loggedInUserIdToName', null);
               localStorage.setItem('filepagenumber', null);
               window.location.replace('print.html');
             } catch (error) {
