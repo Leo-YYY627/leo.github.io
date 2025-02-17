@@ -5,10 +5,17 @@ window.onload = function() {
   
     if (name == "null") {
       localStorage.setItem('loggedInUsername', null);
+      localStorage.setItem('loggedInUserIdToName', null);
       window.location.replace('login.html');
     }else{
-      const accountInfoElement = document.getElementById('account-info');
-      accountInfoElement.textContent = `账号：${name}`;
+      var UserToName = localStorage.getItem('loggedInUserIdToName');
+      if(UserToName == "null"){
+        const accountInfoElement = document.getElementById('account-info');
+        accountInfoElement.textContent = `账号${name}`;
+      }else{
+        const accountInfoElement = document.getElementById('account-info');
+        accountInfoElement.textContent = `用户：${localStorage.getItem('loggedInUserIdToName')}`;
+      }
     }
     var divElement = document.getElementById('pay-money');
     divElement.textContent = "您需要支付：￥"+localStorage.getItem('filepagenumber')*0.25+"元";
