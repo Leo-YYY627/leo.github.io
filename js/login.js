@@ -5,7 +5,7 @@ var kd = null;
 var ks = null;
 
 window.onload = function() {
-  if(localStorage.getItem('loggedInktext') == "null"){
+  if(localStorage.getItem('loggedInktext') == "null" || localStorage.getItem('loggedInktext') == undefined || localStorage.getItem('loggedInktext') == "" || localStorage.getItem('loggedInktext') == null){
     var input = document.getElementById('key');
     input.style.display = 'block';
   }else{
