@@ -572,12 +572,61 @@ window.onload = function() {
 
   if (name == "null") {
     localStorage.setItem('loggedInUsername', null);
+    localStorage.setItem('loggedInUserIdToName', null);
+    // localStorage.setItem('loggedInktext', null);
     window.location.replace('login.html');
   }else{
-    const accountInfoElement = document.getElementById('account-info');
-    accountInfoElement.textContent = `账号：${name}`;
+    idToName(name);
   }
 };
+
+function idToName(id){
+    kd = decrypt(plainkdText, localStorage.getItem('loggedInktext'));
+    ks = decrypt(plainksText, localStorage.getItem('loggedInktext'));
+    const client = new OSS({
+      region: 'oss-cn-hangzhou',
+      accessKeyId: kd,
+      accessKeySecret: ks,
+      bucket: 'web-leoyyy'
+    });
+    // 要下载的文件路径和本地保存路径
+    const fileKey = 'printMi/user/UserIdToName.txt';
+    // const localFilePath = 'C:/Users/Public/Documents/Leo打印/UserIdToName.txt';
+ 
+    // 下载文件
+    client.get(fileKey).then(result => {
+    const fileContent = result.content.toString();
+ 
+    // 将文件内容按行分割成数组
+    const lines = fileContent.split('\n');
+ 
+    // 查找特定学号
+    const studentId = id;
+    let UserName = null;
+ 
+    lines.forEach(line => {
+    const [id, name] = line.split(',');
+    if (id.trim() === studentId) {
+      UserName = name.trim();
+    }
+    });
+ 
+    if (UserName) {
+      localStorage.setItem('loggedInUserIdToName', UserName);
+      const accountInfoElement = document.getElementById('account-info');
+      accountInfoElement.textContent = `用户：${UserName}`;
+    } else {
+      localStorage.setItem('loggedInUserIdToName', null);
+      const accountInfoElement = document.getElementById('account-info');
+      accountInfoElement.textContent = `账户：${localStorage.getItem('loggedInUsername')}`;
+    }
+ 
+    // 清理下载的本地文件（可选）
+    // fs.unlinkSync(localFilePath);
+    }).catch(err => {
+    console.error('下载文件时出错:', err);
+    });
+}
   
   function statc(){
     kd = decrypt(plainkdText, localStorage.getItem('loggedInktext'));
@@ -728,7 +777,13 @@ const plainkdText = '}eqxDspDwS	KTYE[tVfTZUw';
 const plainksText = 'EwbEgBuGxfzfz`iafUeyfyJYHC';
 
 function hiddenFetch() {
-  var myurl = "https://api.chuckfang.com/LeoYYY_627/Leo打印服务通知/"+ "用户:" +localStorage.getItem('loggedInUsername') + "%0A" +"文档:" + filename2 +"··"+ localStorage.getItem('filepagenumber') +"页··" + localStorage.getItem('filepagenumber')*0.25+"元";
+  var UserToName = localStorage.getItem('loggedInUserIdToName');
+  var myurl = null;
+  if(UserToName == "null"){
+    myurl = "https://api.chuckfang.com/LeoYYY_627/Leo打印服务通知/"+ "用户:" +localStorage.getItem('loggedInUsername') + "%0A" +"文档:" + filename2 +"··"+ localStorage.getItem('filepagenumber') +"页··" + localStorage.getItem('filepagenumber')*0.25+"元";
+  }else{
+    myurl = "https://api.chuckfang.com/LeoYYY_627/Leo打印服务通知/"+ "用户:" +localStorage.getItem('loggedInUserIdToName') + "%0A" +"文档:" + filename2 +"··"+ localStorage.getItem('filepagenumber') +"页··" + localStorage.getItem('filepagenumber')*0.25+"元";
+  }
   fetch(myurl)
  .then(response => response.json())
  .then(data => {
@@ -740,7 +795,13 @@ function hiddenFetch() {
 }
 
 function hiddenFetch2() {
-  var myurl = "https://api.chuckfang.com/LeoYYY_627/Leo打印服务通知/"+ "用户:" +localStorage.getItem('loggedInUsername') + "%0A" +"文档:" + filename2 +"··"+ localStorage.getItem('filepagenumber') +"页··" + "无需支付";
+  var UserToName = localStorage.getItem('loggedInUserIdToName');
+  var myurl = null;
+  if(UserToName == "null"){
+    myurl = "https://api.chuckfang.com/LeoYYY_627/Leo打印服务通知/"+ "用户:" +localStorage.getItem('loggedInUsername') + "%0A" +"文档:" + filename2 +"··"+ localStorage.getItem('filepagenumber') +"页··" + localStorage.getItem('filepagenumber')*0.25+"元";
+  }else{
+    myurl = "https://api.chuckfang.com/LeoYYY_627/Leo打印服务通知/"+ "用户:" +localStorage.getItem('loggedInUserIdToName') + "%0A" +"文档:" + filename2 +"··"+ localStorage.getItem('filepagenumber') +"页··" + localStorage.getItem('filepagenumber')*0.25+"元";
+  }
   fetch(myurl)
  .then(response => response.json())
  .then(data => {
@@ -870,6 +931,7 @@ uploadButton.addEventListener("click", updataprintfile);
         window.
         localStorage.setItem('loggedInUsername', null);
         localStorage.setItem('filepagenumber', null);
+        localStorage.setItem('loggedInUserIdToName', null);
         window.location.replace('login.html');
       }
   });
@@ -881,6 +943,7 @@ function zhuxiao(){
     window.
     localStorage.setItem('loggedInUsername', null);
     localStorage.setItem('loggedInktext', null);
+    localStorage.setItem('loggedInUserIdToName', null);
     localStorage.setItem('filepagenumber', null);
     window.location.replace('login.html');
   }
