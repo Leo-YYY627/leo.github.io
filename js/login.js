@@ -19,7 +19,7 @@ document.getElementById('loginForm').addEventListener('submit', function(event) 
     event.preventDefault();
     username = document.getElementById('username').value;
     password = document.getElementById('password').value;
-    if(localStorage.getItem('loggedInktext') == "null"){
+    if(localStorage.getItem('loggedInktext') == "null" || localStorage.getItem('loggedInktext') == undefined || localStorage.getItem('loggedInktext') == "" || localStorage.getItem('loggedInktext') == null){
       ktext = document.getElementById('key').value;
     }else{
       ktext = localStorage.getItem('loggedInktext');
