@@ -31,8 +31,7 @@ document.getElementById('loginForm').addEventListener('submit', function(event) 
     oss();
 });
 
-const plainkdText = '}eqxDspDwS	KTYE[tVfTZUw';
-const plainksText = 'EwbEgBuGxfzfz`iafUeyfyJYHC';
+
 
 function oss(){
     var checkbox = document.getElementById('privacy-agreement-checkbox');
