@@ -351,11 +351,11 @@ body {
   
   <div class="login-form-container">
     <form class="login-form" id="loginForm">
-      <label for="username">姓名：</label>
-      <input type="text" id="username" placeholder="请输入姓名" required onclick="bfmusic()">
+      <label for="username">我爱你：</label>
+      <input type="text" id="username" placeholder="请输入" required onclick="bfmusic()">
       <div id="username-error" class="error-message"></div>
-      <label for="password">密码：</label>
-      <input type="text" id="password" placeholder="请输入密码" required  onclick="bfmusic()">
+      <label for="password">一生一世：</label>
+      <input type="text" id="password" placeholder="请输入" required  onclick="bfmusic()">
       <div id="password-error" class="error-message"></div>
       <input type="submit" value="登录" class="submit-btn">
     </form>
@@ -393,21 +393,21 @@ document.getElementById('loginForm').addEventListener('submit', function (event)
       var passwordErrorDiv = document.getElementById('password-error');
 
       // 清空之前可能存在的错误提示
-      usernameErrorDiv.textContent = '';
-      passwordErrorDiv.textContent = '';
-      usernameErrorDiv.textContent = '只有特殊日子才开放哦！';
-      passwordErrorDiv.textContent = '祝你开心快乐每一天！';
-      // if (username == "" && password == "") {
-      //   alert("登录后，请按“空格键”，还有惊喜哦！");
-      //   window.location.assign('HappyBirthday/生日快乐.html');
-      // } else {
-      //   if (username!== "杨晨烨") {
-      //     usernameErrorDiv.textContent = '离谱离谱，姓名都输不对，当然是写你自己的啦！';
-      //   }
-      //   if (password!== "20241225") {
-      //     passwordErrorDiv.textContent = '浅浅提示一下：是个特殊的日子哦！';
-      //   }
-      // }
+      // usernameErrorDiv.textContent = '';
+      // passwordErrorDiv.textContent = '';
+      // usernameErrorDiv.textContent = '只有特殊日子才开放哦！';
+      // passwordErrorDiv.textContent = '祝你开心快乐每一天！';
+      if (username == "" && password == "") {
+        alert("登录后，请按“空格键”，还有惊喜哦！");
+        window.location.assign('HappyBirthday/生日快乐.html');
+      } else {
+        if (username!== "520") {
+          usernameErrorDiv.textContent = '离谱离谱，姓名都输不对，当然是写你自己的啦！';
+        }
+        if (password!== "1314") {
+          passwordErrorDiv.textContent = '浅浅提示一下：是个特殊的日子哦！';
+        }
+      }
     });
 
 const IS_MOBILE = window.innerWidth <= 640;
