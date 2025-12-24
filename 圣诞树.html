@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<title>Christmas tree</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+body{margin:0;overflow:hidden;background:#000;font-family:Times New Roman,serif}
+#canvas-container{position:absolute;width:100vw;height:100vh}
+#loader{
+    position:fixed;inset:0;
+    display:flex;flex-direction:column;
+    align-items:center;justify-content:center;
+    background:#000;z-index:99;
+    transition:opacity .6s
+}
+.spinner{
+    width:40px;height:40px;border:1px solid rgba(255,215,150,.3);
+    border-top:1px solid #ffd966;border-radius:50%;
+    animation:spin 1s linear infinite
+}
+@keyframes spin{to{transform:rotate(360deg)}}
+.loader-text{color:#ffd966;letter-spacing:4px;font-size:12px;margin-top:20px}
+h1{color:#ffd966;letter-spacing:6px}
+.upload-wrapper{pointer-events:auto}
+.ui-hidden{opacity:0;pointer-events:none}
+</style>
+
+<script type="importmap">
+{
+ "imports":{
+  "three":"https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js",
+  "three/addons/":"https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/",
+  "@mediapipe/tasks-vision":"https://cdn.jsdelivr.net/npm/@mediapipe/tasks-vision@0.10.3/+esm"
+ }
+}
+</script>
+</head>
+
+<body>
+
+<div id="loader">
+  <div class="spinner"></div>
+  <div class="loader-text">Loading Holiday Magic</div>
+</div>
+
+<div id="canvas-container"></div>
+
+<div id="ui-layer">
+  <h1>Merry Christmas</h1>
+  <div class="upload-wrapper">
+    <label>
+      Add Memories
+      <input type="file" id="file-input" multiple accept="image/*" hidden>
+    </label>
+  </div>
+</div>
+
+<video id="webcam" autoplay playsinline style="display:none"></video>
+
+<script type="module">
+import * as THREE from 'three'
+import {EffectComposer} from 'three/addons/postprocessing/EffectComposer.js'
+import {RenderPass} from 'three/addons/postprocessing/RenderPass.js'
+import {UnrealBloomPass} from 'three/addons/postprocessing/UnrealBloomPass.js'
+import {FilesetResolver,HandLandmarker} from '@mediapipe/tasks-vision'
+
+/* -------------------- 基础 Three -------------------- */
+let scene,camera,renderer,composer,group,clock=new THREE.Clock()
+let particles=[]
+const STATE={mode:'TREE',hand:{detected:false,x:0,y:0},rot:{x:0,y:0}}
+
+init()
+animate()
+
+function init(){
+  scene=new THREE.Scene()
+  scene.background=new THREE.Color(0x000000)
+
+  camera=new THREE.PerspectiveCamera(42,innerWidth/innerHeight,.1,1000)
+  camera.position.z=45
+
+  renderer=new THREE.WebGLRenderer({antialias:true})
+  renderer.setSize(innerWidth,innerHeight)
+  document.getElementById('canvas-container').appendChild(renderer.domElement)
+
+  composer=new EffectComposer(renderer)
+  composer.addPass(new RenderPass(scene,camera))
+  composer.addPass(new UnrealBloomPass(
+    new THREE.Vector2(innerWidth,innerHeight),
+    .6,.4,.85
+  ))
+
+  group=new THREE.Group()
+  scene.add(group)
+
+  scene.add(new THREE.AmbientLight(0xffffff,.8))
+
+  createTree()
+
+  // 🔑 3D ready 即隐藏 Loader
+  hideLoader()
+
+  // 🔑 手势识别独立启动（失败不影响主程序）
+  initHandTracking()
+}
+
+function hideLoader(){
+  const l=document.getElementById('loader')
+  l.style.opacity=0
+  setTimeout(()=>l.remove(),600)
+}
+
+function createTree(){
+  const geo=new THREE.SphereGeometry(.5,16,16)
+  const mat=new THREE.MeshStandardMaterial({color:0xffd966,metalness:1,roughness:.2})
+
+  for(let i=0;i<800;i++){
+    const m=new THREE.Mesh(geo,mat)
+    const t=i/800
+    const r=(1-t)*8
+    const a=t*40
+    m.position.set(
+      Math.cos(a)*r,
+      t*20-10,
+      Math.sin(a)*r
+    )
+    group.add(m)
+    particles.push(m)
+  }
+}
+
+/* -------------------- MediaPipe（修复重点） -------------------- */
+async function initHandTracking(){
+  try{
+    const vision=await FilesetResolver.forVisionTasks(
+      "https://cdn.jsdelivr.net/npm/@mediapipe/tasks-vision@0.10.3/wasm"
+    )
+
+    const hand=await HandLandmarker.createFromOptions(vision,{
+      baseOptions:{
+        modelAssetPath:
+          "https://storage.googleapis.com/mediapipe-models/hand_landmarker/hand_landmarker/float16/1/hand_landmarker.task",
+        delegate:"CPU" // ✅ 强制 CPU，稳定
+      },
+      runningMode:"VIDEO",
+      numHands:1
+    })
+
+    const video=document.getElementById('webcam')
+    const stream=await navigator.mediaDevices.getUserMedia({video:true})
+    video.srcObject=stream
+
+    video.onloadeddata=()=>{
+      requestAnimationFrame(function loop(){
+        const res=hand.detectForVideo(video,performance.now())
+        if(res.landmarks?.length){
+          const lm=res.landmarks[0][9]
+          STATE.hand.detected=true
+          STATE.hand.x=(lm.x-.5)*2
+          STATE.hand.y=(lm.y-.5)*2
+        }else{
+          STATE.hand.detected=false
+        }
+        requestAnimationFrame(loop)
+      })
+    }
+  }catch(e){
+    console.warn('Hand tracking disabled:',e)
+  }
+}
+
+/* -------------------- 动画 -------------------- */
+function animate(){
+  requestAnimationFrame(animate)
+  const dt=clock.getDelta()
+
+  if(STATE.hand.detected){
+    STATE.rot.y+=STATE.hand.x*dt
+    STATE.rot.x+=STATE.hand.y*dt
+  }else{
+    STATE.rot.y+=.15*dt
+  }
+
+  group.rotation.y=STATE.rot.y
+  group.rotation.x=STATE.rot.x
+
+  composer.render()
+}
+
+window.onresize=()=>{
+  camera.aspect=innerWidth/innerHeight
+  camera.updateProjectionMatrix()
+  renderer.setSize(innerWidth,innerHeight)
+  composer.setSize(innerWidth,innerHeight)
+}
+</script>
+</body>
+</html>
