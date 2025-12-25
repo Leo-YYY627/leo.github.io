@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <title>Grand Luxury Tree Final v2 (Fixed)</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <style>
+    body {
+      margin: 0;
+      overflow: hidden;
+      background: #000;
+      font-family: Times New Roman, serif;
+    }
+    #canvas-container {
+      position: absolute;
+      width: 100vw;
+      height: 100vh;
+    }
+  </style>
+
+  <script type="importmap">
+    {
+      "imports": {
+        "three": "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js",
+        "@mediapipe/tasks-vision": "https://cdn.jsdelivr.net/npm/@mediapipe/tasks-vision@0.10.3/+esm"
+      }
+    }
+  </script>
+</head>
+
+<body>
+
+<div id="canvas-container"></div>
+
+<script type="module">
+import * as THREE from 'three'
+import { FilesetResolver, HandLandmarker } from '@mediapipe/tasks-vision'
+
+let scene, camera, renderer, cube, clock = new THREE.Clock()
+let particles = []
+
+init()
+animate()
+initHandTracking()
+
+function init() {
+  scene = new THREE.Scene()
+  scene.background = new THREE.Color(0x000000)
+
+  camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000)
+  camera.position.z = 5
+
+  renderer = new THREE.WebGLRenderer({ antialias: true })
+  renderer.setSize(window.innerWidth, window.innerHeight)
+  document.getElementById('canvas-container').appendChild(renderer.domElement)
+
+  // 创建旋转的方块，每个面设置不同的颜色
+  const geometry = new THREE.BoxGeometry(1, 1, 1)
+
+  // 为每个面设置不同的颜色
+  const materials = [
+    new THREE.MeshBasicMaterial({ color: 0xff0000 }), // 红色
+    new THREE.MeshBasicMaterial({ color: 0x00ff00 }), // 绿色
+    new THREE.MeshBasicMaterial({ color: 0x0000ff }), // 蓝色
+    new THREE.MeshBasicMaterial({ color: 0xffff00 }), // 黄色
+    new THREE.MeshBasicMaterial({ color: 0xff00ff }), // 品红色
+    new THREE.MeshBasicMaterial({ color: 0x00ffff })  // 青色
+  ]
+  
+  cube = new THREE.Mesh(geometry, materials)
+  scene.add(cube)
+
+  // 创建粒子系统
+  const particleGeometry = new THREE.SphereGeometry(0.1, 8, 8)
+  const particleMaterial = new THREE.MeshBasicMaterial({ color: 0x00ff00 })
+  for (let i = 0; i < 100; i++) {
+    let particle = new THREE.Mesh(particleGeometry, particleMaterial)
+    particle.position.set(Math.random() * 10 - 5, Math.random() * 10 - 5, Math.random() * 10 - 5)
+    scene.add(particle)
+    particles.push(particle)
+  }
+}
+
+function animate() {
+  requestAnimationFrame(animate)
+
+  // 旋转方块
+  cube.rotation.x += 0.01
+  cube.rotation.y += 0.01
+
+  // 控制粒子系统的扩散
+  particles.forEach(particle => {
+    particle.position.x += (Math.random() - 0.5) * 0.1
+    particle.position.y += (Math.random() - 0.5) * 0.1
+    particle.position.z += (Math.random() - 0.5) * 0.1
+  })
+
+  renderer.render(scene, camera)
+}
+
+async function initHandTracking() {
+  try {
+    const vision = await FilesetResolver.forVisionTasks(
+      "https://cdn.jsdelivr.net/npm/@mediapipe/tasks-vision@0.10.3/wasm"
+    )
+
+    const hand = await HandLandmarker.createFromOptions(vision, {
+      baseOptions: {
+        modelAssetPath:
+          "https://storage.googleapis.com/mediapipe-models/hand_landmarker/hand_landmarker/float16/1/hand_landmarker.task",
+        delegate: "CPU" // 强制 CPU，确保稳定
+      },
+      runningMode: "VIDEO",
+      numHands: 1
+    })
+
+    const video = document.createElement('video')
+    video.autoplay = true
+    video.playsinline = true
+    document.body.appendChild(video)
+
+    const stream = await navigator.mediaDevices.getUserMedia({ video: true })
+    video.srcObject = stream
+
+    video.onloadeddata = () => {
+      requestAnimationFrame(function loop() {
+        const res = hand.detectForVideo(video, performance.now())
+        if (res.landmarks?.length) {
+          const lm = res.landmarks[0][9] // 获取手势的坐标
+          console.log(lm)  // 输出坐标
+
+          // 使用手势的 x 和 y 坐标控制粒子系统的扩散
+          const spreadFactor = lm.x * 5  // 控制粒子扩散范围
+          particles.forEach(particle => {
+            particle.position.x += (Math.random() - 0.5) * spreadFactor
+            particle.position.y += (Math.random() - 0.5) * spreadFactor
+            particle.position.z += (Math.random() - 0.5) * spreadFactor
+          })
+
+          // 控制方块的旋转
+          cube.rotation.y = lm.x * Math.PI * 2
+          cube.rotation.x = lm.y * Math.PI * 2
+        }
+        requestAnimationFrame(loop)
+      })
+    }
+  } catch (e) {
+    console.warn('Hand tracking disabled:', e)
+  }
+}
+
+window.onresize = () => {
+  camera.aspect = window.innerWidth / window.innerHeight
+  camera.updateProjectionMatrix()
+  renderer.setSize(window.innerWidth, window.innerHeight)
+}
+</script>
+
+</body>
+</html>
